@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Ensure all the listed packages are Installed (Ubuntu)
+      apt:
+        name:
+          - net-tools
+          - sysstat
+          - netdiscover
+          - ufw
+          - python3
+          - snmp
+          - snmpd
+          - mysql-client
+          - bc
+        state: present

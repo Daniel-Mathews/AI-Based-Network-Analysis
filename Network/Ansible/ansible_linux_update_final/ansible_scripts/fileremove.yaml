@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+  - name: delete test folder
+    file:
+      path: /home/aniket/network_analyzer_source/
+      state: absent
+    register: out

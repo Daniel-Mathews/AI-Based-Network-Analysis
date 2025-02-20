@@ -1,0 +1,97 @@
+2025-01-09 22:54:23,750 p=137614 u=aniket n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 2 (char 1)
+
+Syntax Error while loading YAML.
+  did not find expected <document start>
+
+The error appears to be in '/home/aniket/ansible_linux_update_final/hosts': line 2, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+[linux]
+192.168.1.220
+^ here
+
+2025-01-09 22:55:38,285 p=232218 u=aniket n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 2 (char 1)
+
+Syntax Error while loading YAML.
+  did not find expected <document start>
+
+The error appears to be in '/home/aniket/ansible_linux_update_final/hosts': line 2, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+[linux]
+192.168.1.220
+^ here
+
+2025-01-10 07:07:24,464 p=19007 u=aniket n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  found unknown escape character
+
+The error appears to be in '/home/aniket/ansible_linux_update_final/ansible_scripts/AI_Agent_Final.yaml': line 11, column 72, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        db_pass: "Cottons@1327"
+        system_ip: "{{ lookup('pipe', 'ifconfig | grep 192.168.1 | awk \'{print $2 " "}\') }}"
+                                                                       ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2025-01-10 08:07:47,086 p=56910 u=aniket n=ansible | PLAY [ubuntusvr] **************************************************************************************
+2025-01-10 08:07:47,090 p=56910 u=aniket n=ansible | TASK [Gathering Facts] ********************************************************************************
+2025-01-10 08:07:47,864 p=56910 u=aniket n=ansible | ok: [192.168.1.18]
+2025-01-10 08:07:47,872 p=56910 u=aniket n=ansible | TASK [Run IP_Dashboard Server using Python - Flask] ***************************************************
+2025-01-10 08:07:48,121 p=56910 u=aniket n=ansible | changed: [192.168.1.18]
+2025-01-10 08:07:48,130 p=56910 u=aniket n=ansible | PLAY RECAP ********************************************************************************************
+2025-01-10 08:07:48,130 p=56910 u=aniket n=ansible | 192.168.1.18               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-01-10 08:08:51,816 p=57240 u=aniket n=ansible | PLAY [ubuntusvr] **************************************************************************************
+2025-01-10 08:08:51,821 p=57240 u=aniket n=ansible | TASK [Gathering Facts] ********************************************************************************
+2025-01-10 08:08:52,581 p=57240 u=aniket n=ansible | ok: [192.168.1.18]
+2025-01-10 08:08:52,589 p=57240 u=aniket n=ansible | TASK [Run IP_Dashboard Server using Python - Flask] ***************************************************
+2025-01-10 08:08:52,906 p=57240 u=aniket n=ansible | fatal: [192.168.1.18]: FAILED! => {"changed": true, "cmd": "python3 /home/aniket/FINAL_DASHBOARD/app.py", "delta": "0:00:00.119936", "end": "2025-01-10 08:08:52.880419", "msg": "non-zero return code", "rc": 1, "start": "2025-01-10 08:08:52.760483", "stderr": "Address already in use\nPort 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.", "stderr_lines": ["Address already in use", "Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port."], "stdout": " * Serving Flask app 'app'\n * Debug mode: on", "stdout_lines": [" * Serving Flask app 'app'", " * Debug mode: on"]}
+2025-01-10 08:08:52,907 p=57240 u=aniket n=ansible | PLAY RECAP ********************************************************************************************
+2025-01-10 08:08:52,907 p=57240 u=aniket n=ansible | 192.168.1.18               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-01-10 08:10:10,808 p=57574 u=aniket n=ansible | PLAY [ubuntusvr] **************************************************************************************
+2025-01-10 08:10:10,812 p=57574 u=aniket n=ansible | TASK [Gathering Facts] ********************************************************************************
+2025-01-10 08:10:11,574 p=57574 u=aniket n=ansible | ok: [192.168.1.18]
+2025-01-10 08:10:11,583 p=57574 u=aniket n=ansible | TASK [Run IP_Dashboard Server using Python - Flask] ***************************************************
+2025-01-10 08:11:08,801 p=57574 u=aniket n=ansible |  [ERROR]: User interrupted execution
+
+2025-01-10 08:14:30,206 p=58757 u=aniket n=ansible | PLAY [ubuntusvr] ************************************************************************************************************************************************************************************************
+2025-01-10 08:14:30,210 p=58757 u=aniket n=ansible | TASK [Gathering Facts] ******************************************************************************************************************************************************************************************
+2025-01-10 08:14:30,975 p=58757 u=aniket n=ansible | ok: [192.168.1.18]
+2025-01-10 08:14:30,984 p=58757 u=aniket n=ansible | TASK [Run IP_Dashboard Server using Python - Flask] *************************************************************************************************************************************************************
+2025-01-10 08:14:31,234 p=58757 u=aniket n=ansible | changed: [192.168.1.18]
+2025-01-10 08:14:31,243 p=58757 u=aniket n=ansible | PLAY RECAP ******************************************************************************************************************************************************************************************************
+2025-01-10 08:14:31,243 p=58757 u=aniket n=ansible | 192.168.1.18               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-01-10 08:15:40,360 p=59368 u=aniket n=ansible | PLAY [ubuntusvr] *******************************************************************************************************
+2025-01-10 08:15:40,364 p=59368 u=aniket n=ansible | TASK [Gathering Facts] *************************************************************************************************
+2025-01-10 08:15:41,141 p=59368 u=aniket n=ansible | ok: [192.168.1.18]
+2025-01-10 08:15:41,149 p=59368 u=aniket n=ansible | TASK [Run IP_Dashboard Server using Python - Flask] ********************************************************************
+2025-01-10 08:15:41,400 p=59368 u=aniket n=ansible | changed: [192.168.1.18]
+2025-01-10 08:15:41,408 p=59368 u=aniket n=ansible | PLAY RECAP *************************************************************************************************************
+2025-01-10 08:15:41,408 p=59368 u=aniket n=ansible | 192.168.1.18               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-01-10 08:17:02,538 p=59704 u=aniket n=ansible | PLAY [ubuntusvr] ************************************************************************************************************************************************************************************************
+2025-01-10 08:17:02,542 p=59704 u=aniket n=ansible | TASK [Gathering Facts] ******************************************************************************************************************************************************************************************
+2025-01-10 08:17:03,306 p=59704 u=aniket n=ansible | ok: [192.168.1.18]
+2025-01-10 08:17:03,314 p=59704 u=aniket n=ansible | TASK [Run IP_Dashboard Server using Python - Flask] *************************************************************************************************************************************************************
+2025-01-10 08:17:03,573 p=59704 u=aniket n=ansible | changed: [192.168.1.18]
+2025-01-10 08:17:03,582 p=59704 u=aniket n=ansible | PLAY RECAP ******************************************************************************************************************************************************************************************************
+2025-01-10 08:17:03,582 p=59704 u=aniket n=ansible | 192.168.1.18               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

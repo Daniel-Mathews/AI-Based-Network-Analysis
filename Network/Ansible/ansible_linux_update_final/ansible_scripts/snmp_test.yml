@@ -1,0 +1,92 @@
+- name: Gather and upload VM and LXC system info to database
+  hosts: localhost
+  vars:
+    db_host: "192.168.1.59"
+    db_name: "IP_INFORMATION"
+    db_user: "root"
+    db_password: "Cottons@1327"
+    vm_ips:
+      - "192.168.1.18"
+      - "192.168.1.220"
+    lxc_ips:
+      - "192.168.1.79"
+      - "192.168.1.99"
+
+  tasks:
+    - name: Gather SNMP facts for VMs
+      community.snmp.snmp_facts:
+        host: "{{ item }}"
+        community: "aniket"
+        version: 1
+      loop: "{{ vm_ips }}"
+      register: snmp_facts_vms
+
+    - name: Gather SNMP facts for LXCs
+      community.snmp.snmp_facts:
+        host: "{{ item }}"
+        community: "aniket"
+        version: 1
+      loop: "{{ lxc_ips }}"
+      register: snmp_facts_lxcs
+
+    - name: Calculate memory usage for VM
+      set_fact:
+        vm_memory: |
+          {
+            "total_ram": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.4.1.2021.4.5.0'] | float / 1024 }}",  # Total RAM in MB
+            "cache_ram": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.4.1.2021.4.15.0'] | float / 1024 }}",  # Cache RAM
+            "buffer_ram": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.4.1.2021.4.14.0'] | float / 1024 }}",  # Buffer RAM
+            "used_ram": "{{ total_ram - cache_ram - buffer_ram }}",
+            "free_ram": "{{ total_ram - used_ram }}"
+          }
+
+    - name: Calculate disk usage for VM
+      set_fact:
+        vm_disk: |
+          {
+            "total_space": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.2.1.25.2.3.1.5.36'] | float }}",  # Total disk space in bytes
+            "used_space": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.2.1.25.2.3.1.6.36'] | float }}",  # Used disk space in bytes
+            "used_percent": "{{ (used_space / total_space * 100) | round(2) }}",
+            "free_space": "{{ total_space - used_space }}"
+          }
+
+    - name: Calculate CPU usage for VM
+      set_fact:
+        vm_cpu: |
+          {
+            "cpu_idle": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.4.1.2021.11.11.0'] | float }}",  # CPU idle percentage
+            "cpu_used": "{{ (100 - cpu_idle) | round(2) }}",  # CPU used percentage
+            "cpu_count": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.2.1.25.3.2.1.3'] | length }}"  # CPU cores count
+          }
+
+    - name: Gather system information for VM
+      set_fact:
+        vm_system_info: |
+          {
+            "users": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.2.1.25.1.5.0'] | int }}",  # Number of users
+            "processes": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.2.1.25.1.6.0'] | int }}",  # Number of processes
+            "uptime": "{{ snmp_facts_vms.results[0].ansible_facts['snmp']['1.3.6.1.2.1.25.1.1.0'] | int }}"  # System uptime in seconds
+          }
+
+    - name: Insert system info into MySQL for VM
+      community.mysql.mysql_db:
+        name: "{{ db_name }}"
+        state: import
+        target: "/tmp/{{ inventory_hostname }}_vm_info.sql"
+      vars:
+        ansible_mysql_db: "{{ db_host }}"
+        ansible_mysql_user: "{{ db_user }}"
+        ansible_mysql_password: "{{ db_password }}"
+
+    # You can repeat the same tasks for LXCs, adjusting the OIDs as necessary
+
+    - name: Insert system info into MySQL for LXC
+      community.mysql.mysql_db:
+        name: "{{ db_name }}"
+        state: import
+        target: "/tmp/{{ inventory_hostname }}_lxc_info.sql"
+      vars:
+        ansible_mysql_db: "{{ db_host }}"
+        ansible_mysql_user: "{{ db_user }}"
+        ansible_mysql_password: "{{ db_password }}"
+

@@ -1,0 +1,88 @@
+
+ ***** IP ADDRESS *****
+IP_ADDRESS: 192.168.1.18
+ ***** MEMORY INFORMATION ***** 
+Total Ram in the System: 7941.73 MB
+Total Ram Used in the System: 6444.7366 MB
+Total Ram Free in the System: 1496.9934 MB
+ ***** DISK PARTITION INFORMATION ***** 
+Partition: / (root)
+Total Partition Space: 97.37 GB
+Partition Used: 17.15 GB
+Partition Free: 80.22 GB
+Used %: 17.00
+Free %: 83.00
+ ***** CPU UTILIZATION ***** 
+Number of CPUs: 4
+CPU Utilization: 1%
+ ***** SYSTEM INFORMATION ***** 
+Number of User Connections to Machine: 0
+Total Number of Processes: 199
+System Uptime: 4:15:55.50
+
+
+ ***** IP ADDRESS *****
+IP_ADDRESS: 192.168.1.220
+ ***** MEMORY INFORMATION ***** 
+Total Ram in the System: 7942.42 MB
+Total Ram Used in the System: 6944.2673 MB
+Total Ram Free in the System: 998.1527 MB
+ ***** DISK PARTITION INFORMATION ***** 
+Partition: / (root)
+Total Partition Space: 489.60 GB
+Partition Used: 12.19 GB
+Partition Free: 477.41 GB
+Used %: 2.00
+Free %: 98.00
+ ***** CPU UTILIZATION ***** 
+Number of CPUs: 2
+CPU Utilization: 1%
+ ***** SYSTEM INFORMATION ***** 
+Number of User Connections to Machine: 0
+Total Number of Processes: 155
+System Uptime: 4:16:03.09
+
+
+ ***** IP ADDRESS *****
+IP_ADDRESS: 192.168.1.79
+ ***** MEMORY INFORMATION ***** 
+Total Ram in the System: 512 MB
+Total Ram Used in the System: 101.738 MB
+Total Ram Free in the System: 410.262 MB
+ ***** DISK PARTITION INFORMATION ***** 
+Partition: / (root)
+Total Partition Space: 7.77 GB
+Partition Used: 1.58 GB
+Partition Free: 6.19 GB
+Used %: 20.00
+Free %: 80.00
+ ***** CPU UTILIZATION ***** 
+Number of CPUs: 1
+CPU Utilization: 1%
+ ***** SYSTEM INFORMATION ***** 
+Number of User Connections to Machine: 1
+Total Number of Processes: 21
+System Uptime: 4:15:49.85
+
+
+ ***** IP ADDRESS *****
+IP_ADDRESS: 192.168.1.99
+ ***** MEMORY INFORMATION ***** 
+Total Ram in the System: 512 MB
+Total Ram Used in the System: 125.105 MB
+Total Ram Free in the System: 386.895 MB
+ ***** DISK PARTITION INFORMATION ***** 
+Partition: / (root)
+Total Partition Space: 7.77 GB
+Partition Used: .91 GB
+Partition Free: 6.86 GB
+Used %: 11.00
+Free %: 89.00
+ ***** CPU UTILIZATION ***** 
+Number of CPUs: 4
+CPU Utilization: 1%
+ ***** SYSTEM INFORMATION ***** 
+Number of User Connections to Machine: 0
+Total Number of Processes: 16
+System Uptime: 4:15:47.41
+

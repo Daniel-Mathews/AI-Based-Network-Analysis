@@ -1,0 +1,15 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Syncing the Network_Analyzer Folder to all machines in the inventory file
+      copy:
+        src: /home/aniket/network_analyzer/
+        dest: /home/aniket/network_analyzer/
+        owner: aniket
+        group: aniket
+    - name: Syncing the run_local script (PACKAGE_DB)
+      copy:
+        src: /home/aniket/ansible_linux_update_final/resources/run_local.sh
+        dest: /home/aniket/
+        owner: aniket
+        group: aniket

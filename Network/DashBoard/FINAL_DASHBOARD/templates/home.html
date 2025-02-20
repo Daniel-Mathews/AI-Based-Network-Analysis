@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Monitoring Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <!-- Header Section -->
+  <h1>Server Monitoring Dashboard</h1>
+
+  <!-- container -->
+  <div class="container">
+    <!-- Dropdown and Action Button -->
+    <div>
+      <label for="ip-dropdown">Select an IP Address:</label>
+      <select id="ip-dropdown" aria-label="IP Address Dropdown">
+        <option value="">Select an IP</option>
+      </select>
+      <button id="go-button" disabled>Go</button>
+    </div>
+  </div>
+  <!-- container/ -->
+
+  <!-- container -->
+  <div class="container">
+    <!-- IP Control Section -->
+    <h2>IP Controls</h2>
+    <div id="controls">
+      <button onclick="listIPAddresses()">List IP Addresses</button>
+      <input type="text" id="ipInput" placeholder="Enter IP address" aria-label="IP Input">
+      <button onclick="pingIP()">Ping IP</button>
+      <button onclick="scanPorts()">Scan Ports</button>
+      <button onclick="redirectToServicePage()">View Service Data</button>
+    </div>
+    <h2>Results</h2>
+      <div id="results" aria-live="polite">
+        <!-- Dynamic Results will be displayed here -->
+      </div>
+  </div>
+  <!-- container/ -->
+
+      
+    <!-- container/ -->
+  <!-- container -->
+  <div class="container">
+    <!-- IP Address Table -->
+    <h2>Available IP Addresses</h2>
+    <table id="ipTable" aria-label="Available IP Addresses Table">
+      <thead>
+        <tr>
+          <th>IP Address</th>
+        </tr>
+      </thead>
+      <tbody id="ipListContent">
+        <!-- Dynamic Content Goes Here -->
+      </tbody>
+    </table>
+  </div>
+  <!-- container/ -->
+
+
+  <!-- JavaScript -->
+  <script>
+    // Fetch IP List
+    function fetchIpList() {
+      fetch('/get-ip-list')
+        .then(response => response.json())
+        .then(data => {
+          const dropdown = document.getElementById('ip-dropdown');
+          dropdown.innerHTML = '<option value="">Select an IP</option>';
+          data.ip_list.forEach(ip => {
+            const option = document.createElement('option');
+            option.value = ip;
+            option.textContent = ip;
+            dropdown.appendChild(option);
+          });
+        })
+        .catch(err => console.error("Error fetching IP list:", err));
+    }
+
+    // Enable Go Button
+    const dropdown = document.getElementById('ip-dropdown');
+    const goButton = document.getElementById('go-button');
+
+    dropdown.addEventListener('change', () => {
+      goButton.disabled = dropdown.value === '';
+    });
+
+    // Redirect to Dashboard
+    goButton.addEventListener('click', () => {
+      const selectedIp = dropdown.value;
+      if (selectedIp) {
+        window.location.href = `/dashboard/${selectedIp}`;
+      }
+    });
+
+    // Redirect to Service Data Page
+    function redirectToServicePage() {
+      window.location.href = "/service-data";
+    }
+
+    // List IP Addresses
+    async function listIPAddresses() {
+      const response = await fetch('/get_ip_addresses');
+      const data = await response.json();
+      const ipListContent = document.getElementById('ipListContent');
+
+      if (data.success) {
+        ipListContent.innerHTML = '';
+        data.ip_addresses.forEach(ip => {
+          const tr = document.createElement('tr');
+          const td = document.createElement('td');
+          td.textContent = ip;
+          tr.appendChild(td);
+          ipListContent.appendChild(tr);
+        });
+      } else {
+        alert('Error fetching IPs: ' + data.error);
+      }
+    }
+
+    // Ping IP Address
+    async function pingIP() {
+      const ip = document.getElementById('ipInput').value;
+      if (!ip) {
+        alert('Please enter an IP address');
+        return;
+      }
+      const response = await fetch('/ping', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ip }),
+      });
+      const data = await response.json();
+      const resultsDiv = document.getElementById('results');
+
+      if (data.success) {
+        resultsDiv.innerHTML = `<p><strong>${data.ip}</strong> is <strong>${data.status}</strong></p>`;
+      } else {
+        alert('Error: ' + data.error);
+      }
+    }
+
+    // Scan Ports of IP Address
+    async function scanPorts() {
+      const ip = document.getElementById('ipInput').value;
+      if (!ip) {
+        alert('Please enter an IP address');
+        return;
+      }
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '<p>Scanning ports, please wait...</p>';
+
+      const response = await fetch('/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ip }),
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        const portsList = data.open_ports.map(port => `<li>Port ${port} is open</li>`).join('');
+        resultsDiv.innerHTML = `
+          <p>Open ports on <strong>${data.ip}</strong>:</p>
+          <ul>${portsList}</ul>
+        `;
+      } else {
+        alert('Error scanning ports: ' + data.error);
+        resultsDiv.innerHTML = '';
+      }
+    }
+
+    // Fetch IP List on Page Load
+    fetchIpList();
+  </script>
+</body>
+</html>

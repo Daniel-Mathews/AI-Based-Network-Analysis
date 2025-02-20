@@ -1,0 +1,9 @@
+[Unit]
+Description=Run_Local.sh
+After=network-online.target
+
+[Service]
+ExecStart=/home/aniket/run_local.sh
+
+[Install]
+WantedBy=multi-user.target

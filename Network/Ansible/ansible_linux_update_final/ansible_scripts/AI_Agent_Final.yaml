@@ -1,0 +1,51 @@
+---
+- name: Run AI Agent Data Processing
+  hosts: AI
+  become: yes
+  tasks:
+    - name: Set database credentials
+      set_fact:
+        ip_add: "192.168.1.59"
+        db_name: "IP_INFORMATION"
+        db_pass: "Cottons@1327"
+
+    - name: Get the system IP address
+      set_fact:
+        system_ip: "{{ ansible_default_ipv4.address }}"
+        db_host: "{{ system_ip | regex_replace('\\.', '_') }}"
+        db_hostname: "AI_AGENT"
+
+    - name: Run db_updation.sh script
+      shell: bash /home/aniket/AI_FINAL/db_updation.sh | awk '{print $2}'
+      register: db_updation_output
+
+    - name: Write output to final_results.txt
+      copy:
+        content: "{{ db_updation_output.stdout }}"
+        dest: /home/aniket/AI_FINAL/final_results.txt
+
+    - name: Read data into variables
+      set_fact:
+        data: "{{ db_updation_output.stdout_lines }}"
+        priority: "{{ data[4] }}"
+        service: "{{ data[3] }}"
+        tx: "{{ data[2] }}"
+        rx: "{{ data[1] }}"
+
+    - name: Ensure the database exists
+      mysql_db:
+        login_user: root
+        login_password: "{{ db_pass }}"
+        login_host: "{{ ip_add }}"
+        name: "{{ db_name }}"
+        state: present
+
+    - name: Insert data into AI_AGENT table
+      mysql_query:
+        login_user: root
+        login_password: "{{ db_pass }}"
+        login_host: "{{ ip_add }}"
+        db: "{{ db_name }}"
+        query: >
+          INSERT INTO AI_AGENT (IP, PRIORITY, SERVICE, AVG_RX, AVG_TX)
+          VALUES ('{{ system_ip }}', '{{ priority }}', '{{ service }}', '{{ rx }}', '{{ tx }}');

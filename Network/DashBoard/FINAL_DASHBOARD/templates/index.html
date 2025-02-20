@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Usage Gauges</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="header">
+    <button class="btn-back" onclick="window.location.href='/'">Back to Home</button>
+    <h1>Resource Usage Gauges for IP: {{ ip }}</h1>
+  </div>
+
+  <div class="gauge-container">
+    <div class="gauge-box">
+      <h2>RAM Usage</h2>
+      <div id="ram-gauge" class="gauge">
+        <div class="gauge__body">
+          <div class="gauge__fill"></div>
+          <div class="gauge__cover">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gauge-box">
+      <h2>CPU Usage</h2>
+      <div id="cpu-gauge" class="gauge">
+        <div class="gauge__body">
+          <div class="gauge__fill"></div>
+          <div class="gauge__cover">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disk-space-container">
+    <h2>Disk Space</h2>
+    <div class="disk-space-bar">
+      <div class="disk-space-used" style="width: 0%;"></div>
+      <div class="disk-space-label">0GB/0GB</div>
+    </div>
+  </div>
+
+  <div class="package-container">
+    <h2>Installed Packages</h2>
+    <input
+      type="text"
+      id="package-search"
+      class="package-search"
+      placeholder="Search for a package..."
+      oninput="filterPackages()"
+    />
+    <div id="package-list" class="package-list">
+      <!-- Packages will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <script>
+    const ip = "{{ ip }}"; // Use the IP passed to the template
+
+    // Utility function to set gauge values
+    function setGaugeValue(gaugeElement, value) {
+      if (value < 0 || value > 100) return;
+
+      const fillElement = gaugeElement.querySelector(".gauge__fill");
+      const coverElement = gaugeElement.querySelector(".gauge__cover");
+
+      fillElement.style.transform = `rotate(${(value / 100) * 0.5}turn)`;
+      coverElement.textContent = `${Math.round(value)}%`;
+    }
+
+    function updateDiskSpace(percentage, disk, totalDisk) {
+      const usedBar = document.querySelector('.disk-space-used');
+      const label = document.querySelector('.disk-space-label');
+      usedBar.style.width = `${percentage}%`;
+      label.textContent = `${disk}GB/${totalDisk}GB`;
+    }
+
+    function displayPackages(packages) {
+  const packageList = document.getElementById('package-list');
+  packageList.innerHTML = ''; // Clear current packages
+
+  if (!packages || packages.length === 0) {
+    packageList.innerHTML = '<p>No packages available for this IP.</p>';
+    return;
+  }
+
+  packages.forEach(pkg => {
+    const packageItem = document.createElement('div');
+    packageItem.classList.add('package-list-item');
+    packageItem.innerHTML = `
+      <span>${pkg.package_name}</span>
+      <span>${pkg.package_version}</span>
+    `;
+    packageList.appendChild(packageItem);
+  });
+}
+
+
+
+    function filterPackages() {
+      const searchValue = document.getElementById('package-search').value.toLowerCase();
+      const packageItems = document.querySelectorAll('.package-list-item');
+      packageItems.forEach(item => {
+        const packageName = item.querySelector('span').textContent.toLowerCase();
+        if (packageName.includes(searchValue)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Fetch and update RAM data
+    function fetchRamData() {
+      fetch(`/get-ram-values?ip=${ip}`)
+        .then(response => response.json())
+        .then(data => {
+          const ramGauge = document.getElementById("ram-gauge");
+          setGaugeValue(ramGauge, data.ram_usage_percentage || 0);
+        })
+        .catch(err => console.error("Error fetching RAM data:", err));
+    }
+
+    // Fetch and update CPU data
+    function fetchCpuData() {
+      fetch(`/get-cpu-values?ip=${ip}`)
+        .then(response => response.json())
+        .then(data => {
+          const cpuGauge = document.getElementById("cpu-gauge");
+          setGaugeValue(cpuGauge, data.cpu_percent || 0);
+        })
+        .catch(err => console.error("Error fetching CPU data:", err));
+    }
+
+    // Fetch and update Disk data
+    function fetchDiskData() {
+      fetch(`/get-disk-values?ip=${ip}`)
+        .then(response => response.json())
+        .then(data => {
+          updateDiskSpace(data.diskfreeperc || 0, data.diskused || 0, data.totaldisk || 0);
+        })
+        .catch(err => console.error("Error fetching Disk data:", err));
+    }
+
+    // Fetch and display package data
+    function fetchPackageData() {
+      fetch(`/get-packages?ip=${ip}`)
+        .then(response => response.json())
+        .then(data => {
+          displayPackages(data.packages || []);
+        })
+        .catch(err => console.error("Error fetching package data:", err));
+    }
+
+    // Initial fetch
+    fetchRamData();
+    fetchCpuData();
+    fetchDiskData();
+    fetchPackageData();
+
+    // Periodically update every 5 seconds
+    setInterval(fetchRamData, 40000);
+    setInterval(fetchCpuData, 40000);
+    setInterval(fetchDiskData, 40000);
+  </script>
+</body>
+</html>

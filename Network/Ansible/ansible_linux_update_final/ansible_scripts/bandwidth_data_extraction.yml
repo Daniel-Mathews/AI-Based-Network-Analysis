@@ -1,0 +1,65 @@
+---
+- hosts: linux
+  become: yes
+  become_user: aniket
+
+  vars:
+    user_home: "/home/aniket"
+    analyzer_dir: "{{ user_home }}/network_analyzer"
+    sar_raw_data: "{{ analyzer_dir }}/sar_raw_data.txt"
+    interface_raw_data: "{{ analyzer_dir }}/interface_raw_data.txt"
+    interface_data: "{{ analyzer_dir }}/interface_data.txt"
+    final_data: "{{ analyzer_dir }}/final_data.txt"
+
+  tasks:
+  - name: Ensure the network analyzer directory exists
+    ansible.builtin.file:
+      path: "{{ analyzer_dir }}"
+      state: directory
+      owner: aniket
+      group: aniket
+      mode: '0755'
+
+  - name: Run sar command to collect raw data
+    ansible.builtin.shell: |
+      sar -n DEV 1 5 > {{ sar_raw_data }}
+      grep ens {{ sar_raw_data }} > {{ interface_raw_data }}
+      cat /dev/null > {{ final_data }}
+
+  - name: Process interface data
+    ansible.builtin.shell: |
+      head -n -1 {{ interface_raw_data }} > {{ interface_data }}
+      #awk '{printf "%-20s %-15s %-15s\n", $1" "$2, $7, $8}' {{ interface_data }} > {{ final_data }}
+      #sed -i "1i TIMESTAMP            rxkB/s          txkB" {{ final_data }}
+
+  - name: Calculate bandwidth data
+    ansible.builtin.shell: |
+      raw_recieving_bandwidth=($(awk '{print $7}' {{ interface_data }}))
+      raw_transmission_bandwidth=($(awk '{print $8}' {{ interface_data }}))
+
+      sum_recieving_bandwidth=0.00
+      sum_transmission_bandwidth=0.00
+
+      for i in ${raw_recieving_bandwidth[@]}; do
+        sum_recieving_bandwidth=$(echo "$sum_recieving_bandwidth + $i" | bc)
+      done
+
+      for j in ${raw_transmission_bandwidth[@]}; do
+        sum_transmission_bandwidth=$(echo "$sum_transmission_bandwidth + $j" | bc)
+      done
+
+      avg_recieving_bandwidth=$(echo "scale=2; $sum_recieving_bandwidth" / 5.0 | bc)
+      avg_transmission_bandwidth=$(echo "scale=2; $sum_transmission_bandwidth" / 5.0 | bc)
+      #echo " " >> {{ final_data }}
+      #echo "Total Recieving Bandwidth: $sum_recieving_bandwidth" >> {{ final_data }}
+      #echo "Total Transmission Bandwidth: $sum_transmission_bandwidth" >> {{ final_data }}
+      echo "$avg_recieving_bandwidth,$avg_transmission_bandwidth" >> {{ final_data }}
+    args:
+      executable: /bin/bash
+
+  - name: Display the final data
+    ansible.builtin.shell: cat {{ final_data }}
+    register: bandwidth_data
+
+  - debug:
+      var: bandwidth_data.stdout_lines

@@ -1,0 +1,9 @@
+- hosts: all
+  become: yes
+  tasks:
+  - name: Run bandwidth_control_setup.sh in Local Machine Environments through Ansible
+    ansible.builtin.shell: bash /home/aniket/network_analyzer/bandwidth_control_setup.sh
+#    register: BSR
+#
+#  - debug:
+#           var: BSR.stdout_lines

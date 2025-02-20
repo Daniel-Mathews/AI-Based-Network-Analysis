@@ -1,0 +1,5 @@
+- hosts: snmp
+  become: yes
+  tasks:
+  - name: Starting the SNMP Data Collection Service
+    ansible.builtin.shell: sudo systemctl start snmp_runner.service

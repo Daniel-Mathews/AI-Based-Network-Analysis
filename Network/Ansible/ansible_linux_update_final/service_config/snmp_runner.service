@@ -1,0 +1,9 @@
+[Unit]
+Description=Run_Local.sh
+After=network-online.target
+
+[Service]
+ExecStart=/home/aniket/ansible_linux_update_final/resources/snmp_data_extraction.sh
+
+[Install]
+WantedBy=multi-user.target

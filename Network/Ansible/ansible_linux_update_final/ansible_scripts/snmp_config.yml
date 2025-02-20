@@ -1,0 +1,26 @@
+---
+- hosts: linux
+  become: yes
+  tasks:
+  - name: Removing Default SNMP Config
+    file:
+      path: /etc/snmp/snmpd.conf
+      state: absent
+    register: out
+
+  - debug:
+      var: out
+
+  - name: Copying the custom SNMP Script
+    copy:
+      src: /home/aniket/network_analyzer/snmpd.conf
+      dest: /etc/snmp/
+    register: out_copy
+
+  - debug:
+      var: out_copy
+
+  - name: Restarting SNMPD Service
+    service: name=snmpd state=restarted
+
+

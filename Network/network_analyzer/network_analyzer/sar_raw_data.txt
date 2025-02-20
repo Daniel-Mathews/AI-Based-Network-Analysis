@@ -1,0 +1,43 @@
+Linux 6.8.0-51-generic (aniket-ubuntusvr-2) 	10/01/25 	_x86_64_	(4 CPU)
+
+09:12:23 AM IST     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+09:12:24 AM IST        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:24 AM IST     ens18      4.00      0.00      0.24      0.00      0.00      0.00      0.00      0.00
+09:12:24 AM IST   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:24 AM IST veth5434020      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:24 AM IST vethcd1ee61      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+09:12:24 AM IST     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+09:12:25 AM IST        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:25 AM IST     ens18      3.00      0.00      0.16      0.00      0.00      0.00      0.00      0.00
+09:12:25 AM IST   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:25 AM IST veth5434020      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:25 AM IST vethcd1ee61      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+09:12:25 AM IST     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+09:12:26 AM IST        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:26 AM IST     ens18      4.00      0.00      0.86      0.00      0.00      0.00      0.00      0.00
+09:12:26 AM IST   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:26 AM IST veth5434020      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:26 AM IST vethcd1ee61      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+09:12:26 AM IST     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+09:12:27 AM IST        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:27 AM IST     ens18      2.00      0.00      0.12      0.00      0.00      0.00      0.00      0.00
+09:12:27 AM IST   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:27 AM IST veth5434020      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:27 AM IST vethcd1ee61      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+09:12:27 AM IST     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+09:12:28 AM IST        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:28 AM IST     ens18      2.00      0.00      0.37      0.00      0.00      0.00      0.00      0.00
+09:12:28 AM IST   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:28 AM IST veth5434020      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+09:12:28 AM IST vethcd1ee61      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:        ens18      3.00      0.00      0.35      0.00      0.00      0.00      0.00      0.00
+Average:      docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:    veth5434020      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:    vethcd1ee61      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00

@@ -1,0 +1,12 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Updating packages on inventory clients
+      apt:
+        update_cache: yes
+        upgrade: 'yes'
+
+    - name: Autoremoval of unused packages
+      apt:
+        autoremove: yes
+        purge: yes

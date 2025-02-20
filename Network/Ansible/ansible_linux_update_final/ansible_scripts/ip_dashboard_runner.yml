@@ -1,0 +1,4 @@
+- hosts: ubuntusvr
+  tasks:
+  - name: Run IP_Dashboard Server using Python - Flask
+    ansible.builtin.shell: /home/aniket/.local/bin/gunicorn --workers 4 --bind 0.0.0.0:5001 --chdir /home/aniket/FINAL_DASHBOARD app:app --daemon

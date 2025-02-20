@@ -1,0 +1,291 @@
+/* General styling */
+body {
+    font-family: "Roboto", sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #f9f9f9;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #248527;
+}
+
+#ip-dropdown {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+/* Add borders to containers */
+#results, .package-container, .gauge-container {
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+/* Table styling */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+caption {
+    caption-side: top;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Results section */
+#results {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+/* Gauge styling */
+.gauge-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    flex-wrap: nowrap;
+}
+
+.gauge {
+    width: 100%;
+    max-width: 250px;
+    margin: 0;
+}
+
+.gauge__body {
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%;
+    background: #b4c0be;
+    position: relative;
+    border-top-left-radius: 100% 200%;
+    border-top-right-radius: 100% 200%;
+    overflow: hidden;
+}
+
+.gauge__fill {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: inherit;
+    height: 100%;
+    background: #009578;
+    transform-origin: center top;
+    transition: transform 0.2s ease-out;
+}
+
+.gauge__cover {
+    width: 75%;
+    height: 150%;
+    background: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25%;
+    box-sizing: border-box;
+    font-size: 32px;
+    color: #004033;
+}
+
+/* Disk Space Bar Styling */
+/* Disk Space Container */
+.disk-space-container {
+    border: 2px solid #333; /* Blue border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Inner spacing */
+    margin: 10px; /* Outer spacing */
+    background-color: #f8f9fa; /* Light background for better contrast */
+  }
+  
+  /* Disk Space Bar */
+  .disk-space-bar {
+    border: 1px solid #6c757d; /* Gray border for the bar */
+    border-radius: 5px; /* Rounded corners for the bar */
+    position: relative;
+    height: 20px; /* Bar height */
+    background-color: #e9ecef; /* Light gray background */
+    overflow: hidden; /* Ensure content stays inside */
+  }
+  
+  /* Disk Space Used */
+  .disk-space-used {
+    height: 100%;
+    background-color: #28a745; /* Green for used space */
+    border-right: 2px solid #218838; /* Darker border on the right for depth */
+    transition: width 0.5s ease; /* Smooth transition for width changes */
+  }
+  
+  /* Disk Space Label */
+  .disk-space-label {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #343a40; /* Dark text color */
+    font-weight: bold;
+    font-size: 0.9rem;
+    line-height: 20px; /* Center text vertically in the bar */
+    text-shadow: 1px 1px 2px #ffffff; /* Subtle shadow for better readability */
+  }
+  
+
+/* Installed Packages Section */
+.package-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.package-container h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.package-search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.package-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.package-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.package-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.package-list li:last-child {
+    border-bottom: none;
+}
+
+.package-list li span {
+    font-weight: bold;
+    color: #333;
+}
+
+.package-list li .package-version {
+    font-size: 14px;
+    color: #666;
+}
+
+.btn-back {
+    margin: 20px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Positioning the Back to Home button */
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #248527;
+}

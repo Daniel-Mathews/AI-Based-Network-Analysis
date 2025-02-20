@@ -1,0 +1,5 @@
+- hosts: AI
+  become: yes
+  tasks:
+  - name: Running the AI Script
+    ansible.builtin.shell: bash /home/aniket/AI_FINAL/db_updation.sh

@@ -1,0 +1,20 @@
+ _____________________________________________________________________________
+   IP            At MAC Address     Count     Len  MAC Vendor / Hostname      
+ -----------------------------------------------------------------------------
+ 192.168.1.96    00:be:43:90:6b:18      1      42  Dell Inc.
+ 192.168.1.1     a4:f3:3b:96:b8:07      1      60  zte corporation
+ 192.168.1.6     98:e7:43:2a:b5:4c      1      60  Dell Inc.
+ 192.168.1.10    bc:24:11:72:4c:00      1      42  Unknown vendor
+ 192.168.1.5     1a:4b:2d:60:9a:b4      1      60  Unknown vendor
+ 192.168.1.12    3c:21:9c:de:c7:bd      1      60  Intel Corporate
+ 192.168.1.38    b0:19:21:b9:ae:e0      1      60  Unknown vendor
+ 192.168.1.59    bc:24:11:42:c1:0c      1      42  Unknown vendor
+ 192.168.1.79    bc:24:11:c1:fe:56      1      42  Unknown vendor
+ 192.168.1.99    bc:24:11:2a:9f:a4      1      42  Unknown vendor
+ 192.168.1.111   bc:24:11:94:59:c4      1      42  Unknown vendor
+ 192.168.1.112   bc:24:11:48:24:20      1      42  Unknown vendor
+ 192.168.1.220   bc:24:11:18:c1:53      1      42  Unknown vendor
+ 192.168.1.250   a0:04:60:10:79:a5      1      60  NETGEAR
+ 192.168.1.157   d8:3a:dd:3c:57:14      1      60  Unknown vendor
+
+-- Active scan completed, 15 Hosts found.

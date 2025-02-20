@@ -1,0 +1,47 @@
+- hosts: linux
+  become: yes
+  tasks:
+  - name: Ensure UFW firewall is installed
+    apt:
+     name: ufw
+     state: present
+
+  - name: Enable UFW Firewall
+    ansible.builtin.command: ufw --force enable
+    changed_when: false
+
+  - name: Allow SSH (port 22)
+    ansible.builtin.ufw:
+      rule: allow
+      port: "22"
+      proto: any
+
+  - name: Allow HTTP (port 80)
+    ansible.builtin.ufw:
+      rule: allow
+      port: "80"
+      proto: any
+
+  - name: Allow HTTPS (port 443)
+    ansible.builtin.ufw:
+      rule: allow
+      port: "443"
+      proto: any
+
+  - name: Allow SQL (port 3306)
+    ansible.builtin.ufw:
+      rule: allow
+      port: "3306"
+      proto: any
+
+  - name: Allow SNMP (port 161)
+    ansible.builtin.ufw:
+      rule: allow
+      port: "161"
+      proto: udp
+
+  - name: Allow Dashboard (port 5001)
+    ansible.builtin.ufw:
+      rule: allow
+      port: "5001"
+      proto: any

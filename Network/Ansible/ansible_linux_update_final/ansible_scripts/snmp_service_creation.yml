@@ -1,0 +1,17 @@
+- hosts: snmp
+  become: yes
+  tasks:
+    - name: Syncing the Network_Analyzer Folder to all machines in the inventory file
+      copy:
+        src: /home/aniket/ansible_linux_update_final/service_config/snmp_runner.service
+        dest: /etc/systemd/system/
+
+    - name: Changing the Permission of snmp_runner.service
+      file:
+        path: /home/aniket/ansible_linux_update_final/service_config/snmp_runner.service
+        mode: 0750
+
+    - name: Enable the snmp_runner.service
+      ansible.builtin.service:
+        name: snmp_runner
+        enabled: yes

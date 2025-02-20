@@ -1,0 +1,5 @@
+- hosts: ubuntusvr
+  become: yes
+  tasks:
+  - name: Running IP Scan on Subnet=192.168.1.0/24 and Updating to Database
+    ansible.builtin.shell: bash /home/aniket/network_analyzer/ip_db_updation.sh

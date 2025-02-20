@@ -1,0 +1,17 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Syncing the Network_Analyzer Folder to all machines in the inventory file
+      copy:
+        src: /home/aniket/ansible_linux_update_final/service_config/run_local.service
+        dest: /etc/systemd/system/
+
+    - name: Changing the Permission of run_local.sh
+      file:
+        path: /home/aniket/run_local.sh
+        mode: 0750
+
+    - name: Enable the run_local.server
+      ansible.builtin.service:
+        name: run_local
+        enabled: yes

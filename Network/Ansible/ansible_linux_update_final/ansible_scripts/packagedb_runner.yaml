@@ -1,0 +1,16 @@
+- hosts: snmp_packagedb_ips
+  become: yes
+  tasks:
+    - name: Enable Package_DB
+      ansible.builtin.shell: sudo systemctl enable run_local.service
+      register: run_local1_register
+
+    - debug:
+              var: run_local1_register.stdout_lines
+
+    - name: Updating Package_DB
+      ansible.builtin.shell: sudo systemctl start run_local.service
+      register: run_local2_register
+
+    - debug:
+              var: run_local2_register.stdout_lines

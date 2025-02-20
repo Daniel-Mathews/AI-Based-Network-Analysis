@@ -1,0 +1,5 @@
+[defaults]
+
+inventory=/home/aniket/ansible_linux_update/hosts
+host_key_checking = False
+log_path=/home/aniket/
