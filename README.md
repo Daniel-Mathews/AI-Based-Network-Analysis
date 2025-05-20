@@ -32,5 +32,16 @@ The AI-Based Network Analysis Project is designed to enhance network performance
 - Enhanced AI model for predictive bandwidth allocation.
 - Integration with more network protocols for expanded monitoring.
 
+## Architecture:
+![image](https://github.com/user-attachments/assets/01331039-d36f-431d-a7e6-ac70f768c6c5)
+
+## Deployed Project
+![image](https://github.com/user-attachments/assets/7d8a404c-2ff8-4e7c-8e1c-73aa0614fe29)
+![image](https://github.com/user-attachments/assets/7ed93802-1d3e-4dc1-85e5-e87061bad897)
+![image](https://github.com/user-attachments/assets/388dd48f-e054-4bd2-a3de-71d76747289b)
+![image](https://github.com/user-attachments/assets/a41d4d27-6111-4270-80d7-30b77580062f)
+
+
+
 
 
